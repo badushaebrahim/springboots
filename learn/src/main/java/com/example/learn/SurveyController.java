@@ -20,6 +20,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/survey")
 public class SurveyController {
+	
 	@Autowired
 	public final SurveyService service;
 	public SurveyController(SurveyService service){
@@ -45,14 +46,22 @@ public class SurveyController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Survey> getSurvey(@PathVariable("id")Long id){
+		try{
 		Survey sur = service.findbyIdSurvey(id);
-		return new ResponseEntity<>(sur,HttpStatus.OK);
+		return new ResponseEntity<>(sur,HttpStatus.OK);}
+		catch (Exception e){
+			return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+		}
 	}
 
 	@PutMapping()
 	public ResponseEntity<Survey> updateSurvey(@RequestBody Survey survey){
-		Survey sur = service.updatesurvey(survey);
-		return new ResponseEntity<>(sur,HttpStatus.ACCEPTED);
+		
+		try{Survey sur = service.updatesurvey(survey);
+		return new ResponseEntity<>(sur,HttpStatus.ACCEPTED);}
+		catch(Exception e){
+			return new ResponseEntity<>(survey,HttpStatus.EXPECTATION_FAILED);
+		}
 	}
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteSurvey(@PathVariable Long id){
