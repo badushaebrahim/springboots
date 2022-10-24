@@ -1,6 +1,5 @@
 package com.example.learn;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.learn.model.Survey;
-import com.example.learn.repos.SurveyRepo;
 import com.example.learn.service.SurveyService;
 
 import java.util.List;
