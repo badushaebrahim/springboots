@@ -1,5 +1,6 @@
 package com.example.learn.service;
 
+import java.net.PortUnreachableException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,12 @@ public class SurveyService {
 		return surveyRepo.findEmployeeById(id).orElseThrow(() -> new UserNotFoundException("User with id"+id+"was not found"));
 	}
 
-	public Survey update(Survey survey){
+	public Survey updatesurvey(Survey survey){
 		return surveyRepo.save(survey);
+	}
+	public void deleteSurvey(Long id){
+		surveyRepo.delete(findbyIdSurvey(id));
+
 	}
 
 }

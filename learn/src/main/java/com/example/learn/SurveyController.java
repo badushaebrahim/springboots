@@ -4,9 +4,11 @@ import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,9 +31,13 @@ public class SurveyController {
 
 	@PostMapping()
 	public ResponseEntity<Survey> addSurvey(@RequestBody Survey survey){
+		try{
 		Survey sur =  service.addSurvey(survey);
-		return new ResponseEntity<>(sur,HttpStatus.CREATED);
-	}
+		return new ResponseEntity<>(sur,HttpStatus.CREATED);}
+		catch(Exception e){
+			return new ResponseEntity<>(survey,HttpStatus.EXPECTATION_FAILED);}
+		}
+	
 
 	@GetMapping()
 	public ResponseEntity<List<Survey>> getAll(){
@@ -45,4 +51,21 @@ public class SurveyController {
 		return new ResponseEntity<>(sur,HttpStatus.OK);
 	}
 
+	@PutMapping()
+	public ResponseEntity<Survey> updateSurvey(@RequestBody Survey survey){
+		Survey sur = service.updatesurvey(survey);
+		return new ResponseEntity<>(sur,HttpStatus.ACCEPTED);
+	}
+	@DeleteMapping("{id}")
+	public ResponseEntity<?> deleteSurvey(@PathVariable Long id){
+		try{
+			service.deleteSurvey(id);
+			return new ResponseEntity<>(HttpStatus.OK);
+		
+		}catch(Exception e){
+			return new ResponseEntity<>(e,HttpStatus.EXPECTATION_FAILED);
+
+		}
+		
+	}
 }
