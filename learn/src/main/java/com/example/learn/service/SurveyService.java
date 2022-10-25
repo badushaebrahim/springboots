@@ -20,7 +20,7 @@ public class SurveyService {
 	public Survey addSurvey(Survey survey){
 		return surveyRepo.save(survey);
 	}
-
+//test
 	public List<Survey> listAllSurvey(){
 		return surveyRepo.findAll();
 	}
