@@ -3,6 +3,7 @@ package com.example.learn;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import com.example.learn.service.SurveyService;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/survey")
 public class SurveyController {
 	
@@ -30,8 +32,10 @@ public class SurveyController {
 
 	@PostMapping()
 	public ResponseEntity<Survey> addSurvey(@RequestBody Survey survey){
+		System.out.println(survey.getName());
 		try{
 		Survey sur =  service.addSurvey(survey);
+		System.out.println(sur);
 		return new ResponseEntity<>(sur,HttpStatus.CREATED);}
 		catch(Exception e){
 			return new ResponseEntity<>(survey,HttpStatus.EXPECTATION_FAILED);}
@@ -50,7 +54,7 @@ public class SurveyController {
 		Survey sur = service.findbyIdSurvey(id);
 		return new ResponseEntity<>(sur,HttpStatus.OK);}
 		catch (Exception e){
-			return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
 
