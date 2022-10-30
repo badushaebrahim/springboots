@@ -1,8 +1,8 @@
 pipeline{
 	agent any
-	environment {
-//     EXAMPLE_KEY = credentials('example-credentials-id') // Secret value is 'sec%ret'
-  }
+// 	environment {
+// //     EXAMPLE_KEY = credentials('example-credentials-id') // Secret value is 'sec%ret'
+//   }
 	stages{
 		stage("init "){
 			steps{
